@@ -14,7 +14,7 @@ TOTAL_EXECUTABLE=0
 #Loop Though and add up file size
 for file in "${DIR[@]}"
 do
-	TEMP=`wc -c "${file}" | cut -d ' ' -f6`
+	TEMP=`wc -c "${file}" | sed -e 's/^[[:space:]]*//' | cut -d ' ' -f1`
 	let BYTES+=TEMP
 
 	let TOTAL_FILES++
