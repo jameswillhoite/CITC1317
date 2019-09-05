@@ -14,6 +14,7 @@ TOTAL_EXECUTABLE=0
 #Loop Though and add up file size
 for file in "${DIR[@]}"
 do
+	#get the size of the file | trim any leading whitspace | cut the line at the space and return the first one
 	TEMP=`wc -c "${file}" | sed -e 's/^[[:space:]]*//' | cut -d ' ' -f1`
 	let BYTES+=TEMP
 
