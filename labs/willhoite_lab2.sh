@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# James Willhoite
+# 9/6/2019
+# Lab 2
+
+
 #get list of files in directory as array
 DIR=(`find ./ -type f`)
 
