@@ -60,7 +60,7 @@ fi
 #Grep for Email Address
 if [ $EMAIL -eq 1 ]; then
 	printf "Email Addresses\n\n"
-	egrep -o -E '[a-zA-Z0-9\-\_\.]*\@[a-zA-Z0-9\-\_\.]*\.[a-zA-Z]*' "${FILENAME}"
+	egrep -o -E '\b[a-zA-Z0-9\-\_\.]+\@[a-zA-Z0-9\-\_\.]+\.(com|org|edu|net)\b' "${FILENAME}"
 	printf "\n\n"
 fi
 
