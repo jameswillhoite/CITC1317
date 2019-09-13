@@ -9,6 +9,7 @@
 EMAIL=0
 PHONE=0
 
+#Just a function to print out the Usage of this file
 printUsage() {
 	printf "Usage: $0 (-e|-p) input_file\n"
 }
@@ -56,12 +57,14 @@ if [ ! -f "$FILENAME" ]; then
 	exit 1
 fi
 
+#Grep for Email Address
 if [ $EMAIL -eq 1 ]; then
 	printf "Email Addresses\n\n"
 	egrep -o -E '[a-zA-Z0-9\-\_\.]*\@[a-zA-Z0-9\-\_\.]*\.[a-zA-Z]*' "${FILENAME}"
 	printf "\n\n"
 fi
 
+#Grep for phone numbers
 if [ $PHONE -eq 1 ]; then
 	printf "Phone Numbers\n\n"
 	egrep -o -w -E '([0-9]{3,3}\-[0-9]{3,3}\-[0-9]{4,4}|\([0-9]{3,3}\)\s?[0-9]{3,3}\-[0-9]{4,4})' "${FILENAME}"
