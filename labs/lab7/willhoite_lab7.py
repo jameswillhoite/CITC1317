@@ -3,6 +3,7 @@
 James Willhoite
 10/18/19
 Lab 7 Chatbot
+Theme: General
 """
 import random
 import time
@@ -21,24 +22,28 @@ def getResponse(line):
     elif 'tell' in line and 'me' in line:
         if 'joke' in line:
             return tellJoke()
+        elif 'story' in line:
+            return "I don't know any good stories .... do you?"
     elif ('i will' in line and 'call you' in line) or ('change your name' in line):
-        x = re.findall('(?:call\syou\s|your\sname|name\s)\s(?:to)?\s([a-z\s]*)', line)
+        x = re.findall('(?:call\syou|change\syour\sname\sto|name\sis\snow)\s([a-z\s]*)', line)
         myname = x[0].title()
         return "Ok. My name is now " + myname
     elif ('change my' in line and 'name' in line) or ('call me' in line):
-        x = re.findall('(?:change\smy\sname)\s(?:to)\s([a-z\s]*)', line)
+        x = re.findall('(?:change\smy\sname\sto|call\sme)\s([a-z\s]*)', line)
         name = x[0].title()
         return "Ok. I will now call you " + name
     elif ('good one' in line) or ('you\'re awesome' in line) or ('that\'s awesome' in line):
         return recieveComplement()
     elif 'give' in line and 'complement' in line:
         return giveComplement()
+    elif words[0] == 'give':
+        return "I have nothing to give you but kindness."
 
-    return "Can you tell me a little more about that ...."
+    return defaultResonse()
 
 
 def askedQuestion(line, words):
-    if 'who i am' in line:
+    if 'who i am' in line or 'who am i' in line:
         return "Yes, your name is " + name
     elif 'what' in line:
         today = datetime.datetime.now()
@@ -130,31 +135,42 @@ def giveComplement():
         "I like your style.",
         "I appreciate you.",
         "You're a smart cookie.",
-        "You’re an awesome friend.",
+        "You're an awesome friend.",
         "You light up the room.",
         "You deserve a hug right now.",
-        "Is that your picture next to “charming” in the dictionary?",
-        "You’re all that and a super-size bag of chips.",
-        "On a scale from 1 to 10, you’re an 11.",
+        "Is that your picture next to \"charming\" in the dictionary?",
+        "You're all that and a super-size bag of chips.",
+        "On a scale from 1 to 10, you're an 11.",
         "If cartoon bluebirds were real, a bunch of them would be sitting on your shoulders singing right now.",
-        "You’re like sunshine on a rainy day.",
-        "You’re a great listener.",
+        "You're like sunshine on a rainy day.",
+        "You're a great listener.",
         "Everything would be better if more people were like you!",
         "Hanging out with you is always a blast.",
-        "You always know — and say — exactly what I need to hear when I need to hear it.",
+        "You always know - and say - exactly what I need to hear when I need to hear it.",
         "Being around you makes everything better!",
-        "You’re more fun than a ball pit filled with candy. (And seriously, what could be more fun than that?)",
-        "You’re wonderful.",
-        "You’re one of a kind!",
-        "You’re inspiring.",
-        "You’re more fun than bubble wrap.",
-        'In high school I bet you were voted “most likely to keep being awesome.”',
-        "You’re really something special."
+        "You're more fun than a ball pit filled with candy. (And seriously, what could be more fun than that?)",
+        "You're wonderful.",
+        "You're one of a kind!",
+        "You're inspiring.",
+        "You're more fun than bubble wrap.",
+        'In high school I bet you were voted \"most likely to keep being awesome.\"',
+        "You're really something special."
     ]
     index = random.randint(0, len(list) - 1)
     return list[index]
 
 
+def defaultResonse():
+    list = [
+        "Can you tell me a little more about that ....",
+        "I need some more information about that ...",
+        "Lets talk about something else.",
+        "Hmm, that's interesting.",
+        "Yep, I second that.",
+        "I could tell you a joke. Just ask me to tell you a joke."
+    ]
+    index = random.randint(1, len(list) - 1)
+    return list[index]
 
 def writeToLog(user, txt):
     f = open("ChatBot.log", "a")
@@ -163,12 +179,13 @@ def writeToLog(user, txt):
     f.write(text)
     f.close()
 
-myname = "Someone"
+
+myname = "Mary"
 
 opening = 'Hello! My name is ' + myname + '. What\'s your name? '
 writeToLog(myname, opening)
 
-name = input(opening).title()
+name = raw_input(opening).title()
 writeToLog(name, name)
 
 greeting = "\nHello " + name + " it's nice to meet you.\n "
@@ -179,7 +196,7 @@ print(greeting)
 start = "Now, what would you like to talk about? "
 writeToLog(myname, start)
 
-line = input(start)
+line = raw_input(start)
 
 while line != 'bye':
     line = line.lower()
@@ -188,7 +205,7 @@ while line != 'bye':
     reply = getResponse(line)
     writeToLog(myname, reply)
 
-    line = input(reply + "\n")
+    line = raw_input(reply + "\n")
 
 closing = "It was nice talking with you " + name + ". Have a Great Day!"
 writeToLog(myname, closing)
