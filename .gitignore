@@ -1,3 +1,5 @@
 .idea/
 *.swp
 venv/
+.AppleDouble
+.DS_Store
